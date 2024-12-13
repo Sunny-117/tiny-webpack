@@ -39,13 +39,4 @@ hot-updata.json ，hot-updata.js 是那里来的呀， 每次编译后，是webp
 大力威
 插件生成的 
 
-
-hot-update.js 都是上次的hash吗？ 
-是的
-
-大力威
-老师 http拦截那 是个什么套路来着 
-黄鹏
-webpack5 模块联邦 是啥？ 
- 这个我们会详细讲
  

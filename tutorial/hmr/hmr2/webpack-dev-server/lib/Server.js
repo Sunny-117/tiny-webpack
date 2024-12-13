@@ -10,11 +10,17 @@ class Server{
         this.compiler = compiler;
         this.devServerArgs = devServerArgs;
         updateCompiler(compiler);
+        //4.添加webpack的done事件回调，在编译完成后会向浏览器发送消息
         this.setupHooks();//开始启动webpack的编译
+        //5.创建express应用app
         this.setupApp();
         this.routes();
+        //6.使用监控模式开始启动webpack编译,在 webpack 的 watch 模式下，文件系统中某一个文件发生修改，webpack 监听到文件变化，根据配置文件对模块重新编译打包，并将打包后的代码通过简单的 JavaScript 对象保存在内存中
+        //8.添加webpack-dev-middleware中间件
         this.setupDevMiddleware();
+        //9.创建http服务器并启动服务
         this.createServer();
+        //10.使用sockjs在浏览器端和服务端之间建立一个 websocket 长连接，将 webpack 编译打包的各个阶段的状态信息告知浏览器端,浏览器端根据这些socket消息进行不同的操作。当然服务端传递的最主要信息还是新模块的hash值，后面的步骤根据这一hash值来进行模块热替换
         this.createSocketServer();
     }
    
