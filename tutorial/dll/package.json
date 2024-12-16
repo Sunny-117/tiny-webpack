@@ -16,6 +16,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "autodll-webpack-plugin": "^0.4.2",
     "is-promise": "^4.0.0",
     "isarray": "^2.0.5",
     "jquery": "^3.5.1",

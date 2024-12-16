@@ -1,6 +1,6 @@
 const path = require("path");
-const DllPlugin = require("webpack/lib/DllPlugin");
-// const DllPlugin2 = require("./plugins/DllPlugin");
+// const DllPlugin = require("webpack/lib/DllPlugin");
+const DllPlugin2 = require("./plugins/DllPlugin");
 
 module.exports = {
   mode: "development",
@@ -14,7 +14,7 @@ module.exports = {
     library: "_dll_utils",
   },
   plugins: [
-    new DllPlugin({
+    new DllPlugin2({
       //暴露出去的dll函数
       name: "_dll_utils",
       //输出的manifest json文件的绝对路径
