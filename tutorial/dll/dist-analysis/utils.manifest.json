@@ -1,0 +1,17 @@
+{
+  "name": "_dll_utils",
+  "content": {
+    "./node_modules/.pnpm/is-promise@4.0.0/node_modules/is-promise/index.js": {
+      "id": "./node_modules/.pnpm/is-promise@4.0.0/node_modules/is-promise/index.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    },
+    "./node_modules/.pnpm/isarray@2.0.5/node_modules/isarray/index.js": {
+      "id": "./node_modules/.pnpm/isarray@2.0.5/node_modules/isarray/index.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    }
+  }
+}

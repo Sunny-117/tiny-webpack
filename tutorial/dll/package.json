@@ -1,10 +1,11 @@
 {
-  "name": "split",
+  "name": "dll",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "dll": "webpack --config webpack.dll.config.js",
+    "build": "webpack --config webpack.config.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "is-promise": "^4.0.0",
     "isarray": "^2.0.5",
     "jquery": "^3.5.1",
     "lodash": "^4.17.20"

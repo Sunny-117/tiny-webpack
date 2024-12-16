@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   html-webpack-plugin: ^4.5.0
+  is-promise: ^4.0.0
   isarray: ^2.0.5
   jquery: ^3.5.1
   lodash: ^4.17.20
@@ -9,6 +10,7 @@ specifiers:
   webpack-cli: ^3.3.12
 
 dependencies:
+  is-promise: 4.0.0
   isarray: 2.0.5
   jquery: 3.7.1
   lodash: 4.17.21
@@ -1986,6 +1988,10 @@ packages:
     dependencies:
       isobject: 3.0.1
     dev: true
+
+  /is-promise/4.0.0:
+    resolution: {integrity: sha1-Qv+fhCBsGZHSbev1IN1cAQQt0vM=}
+    dev: false
 
   /is-regex/1.2.1:
     resolution: {integrity: sha512-MjYsKHO5O7mCsmRGxWcLWheFqN9DJ/2TmngvjKXihe6efViPqc274+Fx/4fYj/r03+ESvBdTXK0V6tA3rgez1g==}
