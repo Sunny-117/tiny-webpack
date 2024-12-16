@@ -17,6 +17,7 @@ class HashPlugin{
                 for(let chunk of compilation.chunks){
                     //每个代码块hash计算结果会放在chunk.renderedHash属性里
                     chunk.renderedHash = chunk.name+'_chunkHash';
+                    console.log(chunk.renderedHash, 'chunk.renderedHash')
                     //每个代码块的contentHash就放在chunk.contentHash里
                     chunk.contentHash = {'javascript':'contentHash'};
                 }

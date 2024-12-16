@@ -10,6 +10,10 @@ module.exports = {
     filename:'[name].js',
     path: path.resolve(__dirname,'dist')
   },
+  resolve: {
+    // 针对 Npm 中的第三方模块优先采用 jsnext:main 中指向的 ES6 模块化语法的文件
+    mainFields: ['jsnext:main', 'browser', 'main']
+  },
   optimization:{
     splitChunks:{
       cacheGroups:{
@@ -46,6 +50,7 @@ module.exports = {
     contentBase:'./dist'
   },
   plugins:[
+     // 开启 Scope Hoisting
     new ModuleConcatenationPlugin(),
     new HappyPack({
       id:'js',

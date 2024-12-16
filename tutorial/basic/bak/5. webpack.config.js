@@ -38,6 +38,7 @@ module.exports = (env) => ({
         path: resolve(__dirname, 'dist'), // 输出文件夹的绝对路径
         //入口代码块的名称 main
         filename: '[name].[hash:10].js', // 输出的文件名
+        // filename: '[name].[chunkhash:10].js', // 输出的文件名
         //非入口代码块的名称配置项 
         //非入口代码块有两个来源1.代码分割 vendor common
         //懒加载  import方法加载模块
@@ -178,6 +179,7 @@ module.exports = (env) => ({
         //把收集到的所有的CSS样式都写入到main.css,然后现把此资源插入到HTML里去
         new MiniCssExtractPlugin({
             filename: 'css/[name].css'
+            // filename: "[name].[chunkhash].css"
         }),
         (env && env.production) && new OptimizeCssAssetsWebpackPlugin()
     ].filter(Boolean),
