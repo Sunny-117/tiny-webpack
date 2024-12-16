@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
-    mode:'production',//选择生产环境的话,会默认进行压缩
+    mode:'development',//选择生产环境的话,会默认进行压缩
     devtool:false,
     //MPA多页应用 多入口
     entry:'./src/index.js', 
