@@ -1,9 +1,3 @@
-/**
- * 我 需要向输出目录里多输出一个文件
- * 你得告诉 webpack你输出的文件名和文件内容
- * assets.md
- * 
- */
 //const {RawSource} = require('webpack-sources');
 let JSZIP = require('jszip');
 const path = require('path');
