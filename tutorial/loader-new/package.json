@@ -1,0 +1,11 @@
+{
+  "name": "loader-new",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "loader-runner": "^4.3.0"
+  }
+}

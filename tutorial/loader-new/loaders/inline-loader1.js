@@ -1,9 +1,7 @@
 function normal(source){
-    console.log(this.context);// loaderContext
+    console.log(this.context);
     console.log('inline1');
     return source+'//inline1';
-    //let innerCallback = this.async();
-    //innerCallback(null,source+'//inline1');
 }
 //previousRequest+自己+remainingRequest=request
 normal.pitch = function(remainingRequest,previousRequest,data){
