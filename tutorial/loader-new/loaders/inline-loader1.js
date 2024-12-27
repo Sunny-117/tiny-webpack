@@ -6,6 +6,7 @@ function normal(source){
 //previousRequest+自己+remainingRequest=request
 normal.pitch = function(remainingRequest,previousRequest,data){
     console.log('inline1-pitch');
+    return 'inline1-pitch'
     //console.log(this);//loaderContext
     //return 'inline1-pitch';//第一种方法
     //this.callback(null, 'inline1-pitch');// 第二种是this.callback返回一个值

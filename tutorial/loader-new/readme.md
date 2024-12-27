@@ -7,3 +7,12 @@ loader类型不同会决定执行顺序的，因为loader的配置是分散的,�
 如何实现的？
 
 
+如果pitch中返回：
+
+![](2024-12-27-21-53-52.png)
+
+```js
+normal.pitch = function(remainingRequest,previousRequest,data){
+    return 'inline1-pitch'
+}
+```
