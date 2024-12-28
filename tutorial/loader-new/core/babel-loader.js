@@ -1,5 +1,6 @@
 const core = require('@babel/core');
 const path = require('path');
+const consola = require('consola');
 
 /**
  * @param {*} source 上一个loader给的内容/最原始的模块内容
@@ -7,7 +8,7 @@ const path = require('path');
  * @param {*} data 本loader额外的数据
  */
 function loader(source, inputSourceMap, data) {
-  console.log(this.request, 'this.request')
+  consola.success(this.request)
   const {code, map, ast} = core.transform(source, {
     presets: ['@babel/preset-env'],
     inputSourceMap,

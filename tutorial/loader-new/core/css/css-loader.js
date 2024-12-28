@@ -2,6 +2,7 @@
 let loaderUtils = require('loader-utils');
 let postcss = require('postcss');
 let Tokenizer = require('css-selector-tokenizer');
+const consola = require('consola');
 
 /**
  * css-loader是在webpack处理index.js里的index.css依赖的时候执行
@@ -69,10 +70,10 @@ function loader(inputSource) {
     //stringifyRequest 把请求转成字符串 ""
     //loader-utils中的stringifyRequest方法,可以将绝对路径转化为相对路径。
     // c://loader.js=>./src/loader.js ""
+    consola.success({imports: options.imports})
     let importCss = options.imports
       .map((url) => `list.push(...require(` +
         loaderUtils.stringifyRequest(this, `-!${loadersRequest}!${url}`) + `));`).join("\r\n");
-    console.log({importCss}, 'importCss')
     let script = `
          var list = [];
          list.toString = function(){return this.join('')}

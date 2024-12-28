@@ -47,18 +47,18 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          "style-loader",
+          path.resolve(__dirname, './core/css/style-loader.js'),
           {
             loader: path.resolve(__dirname, './core/css/css-loader.js'),
             options: {
               url: true,//是否解析url()
               import: true,//是否解析@import语法
               esModule: false,//不包装成ES MODULE，默认是common.js导出
-              //importLoaders:0//在处理导入的CSS的时候，要经过几个前置loader的处理
+              importLoaders:2//在处理导入的CSS的时候，要经过几个前置loader的处理
             }
           },
-          //"logger2-loader",
-          //"logger1-loader",
+          path.resolve(__dirname, "./core/logger2-loader"),
+          path.resolve(__dirname, "./core/logger1-loader"),
         ],
         include: path.resolve('src')
       },
@@ -72,7 +72,7 @@ module.exports = {
               url: false,//是否解析url()
               import: true,//是否解析@import语法
               esModule: false,//不包装成ES MODULE，默认是common.js导出
-              importLoaders: 0//在处理导入的CSS的时候，要经过几个前置loader的处理
+              importLoaders: 1//在处理导入的CSS的时候，要经过几个前置loader的处理
             }
           },
           'less-loader'
@@ -82,6 +82,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin({
+      template: './src/test/css-loader/index.html'
+    })
   ]
 }
