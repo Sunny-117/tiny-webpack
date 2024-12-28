@@ -1,144 +1,224 @@
-let fs = require('fs');
-let readFile = fs.readFile.bind(this);//读取硬盘上文件的默认方法
+const fs = require('fs');
+const path = require('path');
+const readFile = fs.readFile.bind(fs);
+const PATH_QUERY_FRAGMENT_REGEXP = /^([^?#]*)(\?[^#]*)?(#.*)?$/;
 
-function createLoaderObject(request) {
-  let loaderObj = {
-    request,
-    normal: null,//loader函数本身
-    pitch: null,//pitch函数本身
-    raw: false,//是否需要转成字符串,默认是转的
-    data: {},//每个loader都会有一个自定义的data对象，用来存放一些自定义信息
-    pitchExecuted: false,//pitch函数是否已经执行过了
-    normalExecuted: false//normal函数是否已经执行过了
+function parsePathQueryFragment(resource) {//resource =./src/index.js?name=sunny#top
+  let result = PATH_QUERY_FRAGMENT_REGEXP.exec(resource);
+  return {
+    path: result[1],  //路径名 ./src/index.js
+    query: result[2],  //   ?name=sunny
+    fragment: result[3]// #top
   }
-  let normal = require(loaderObj.request);
-  loaderObj.normal = normal;
-  loaderObj.raw = normal.raw;
-  let pitch = normal.pitch;
-  loaderObj.pitch = pitch;
-  return loaderObj;
 }
-function processResource(processOptions, loaderContext, finalCallback) {
-  loaderContext.loaderIndex = loaderContext.loaderIndex - 1;//索引等最后一个loader的索引
-  let resource = loaderContext.resource;//c:/src/index.js
-  loaderContext.readResource(resource, (err, resourceBuffer) => {
-    if (err) finalCallback(err);
-    processOptions.resourceBuffer = resourceBuffer;//放的是资源的原始内容
-    iterateNormalLoaders(processOptions, loaderContext, [resourceBuffer], finalCallback);
-  });
-}
-function iterateNormalLoaders(processOptions, loaderContext, args, finalCallback) {
-  if (loaderContext.loaderIndex < 0) {// 如果索引已经小于0了，就表示所有的normal执行完成了
-    return finalCallback(null, args);
-  }
-  let currentLoaderObject = loaderContext.loaders[loaderContext.loaderIndex];
-  if (currentLoaderObject.normalExecuted) {
-    loaderContext.loaderIndex--;
-    return iterateNormalLoaders(processOptions, loaderContext, args, finalCallback);
-  }
-  let normalFunction = currentLoaderObject.normal;
-  currentLoaderObject.normalExecuted = true;//表示pitch函数已经执行过了
-  convertArgs(args, currentLoaderObject.raw);
-  runSyncOrAsync(normalFunction, loaderContext, args, (err, ...values) => {
-    if (err) finalCallback(err);
-    iterateNormalLoaders(processOptions, loaderContext, values, finalCallback);
-  });
+function loadLoader(loaderObject) {
+  let normal = require(loaderObject.path);
+  loaderObject.normal = normal;
+  loaderObject.pitch = normal.pitch;
+  loaderObject.raw = normal.raw;
 }
 function convertArgs(args, raw) {
-  if (raw && !Buffer.isBuffer(args[0])) {//想要Buffer,但不是Buffer,转成Buffer
-    args[0] = Buffer.from(args[0]);
-  } else if (!raw && Buffer.isBuffer(args[0])) {//想要Buffer,但不是Buffer,转成Buffer
+  if (raw && !Buffer.isBuffer(args[0])) {//如果这个loader需要 buffer,args[0]不是,需要转成buffer
+    args[0] = Buffer.from(args[0], 'utf8');
+  } else if (!raw && Buffer.isBuffer(args[0])) {
     args[0] = args[0].toString('utf8');
   }
 }
-function iteratePitchingLoaders(processOptions, loaderContext, finalCallback) {
-  if (loaderContext.loaderIndex >= loaderContext.loaders.length) {
-    return processResource(processOptions, loaderContext, finalCallback);
+
+function createLoaderObject(loader) {
+  const obj = {
+    path: '',//当前loader的绝对路径
+    query: '',//当前loader的查询参数
+    fragment: '',//当前loader的片段
+    normal: null,//当前loader的normal函数
+    pitch: null,//当前loader的pitch函数
+    raw: null,//是否是Buffer
+    data: {},//自定义对象 每个loader都会有一个data自定义对象
+    pitchExecuted: false,//当前 loader的pitch函数已经执行过了,不需要再执行了
+    normalExecuted: false//当前loader的normal函数已经执行过了,不需要再执行
   }
+  Object.defineProperty(obj, 'request', {
+    get() {
+      return obj.path + obj.query + obj.fragment;
+    },
+    set(value) {
+      const {path, query, fragment} = parsePathQueryFragment(value);
+      obj.path = path;
+      obj.query = query;
+      obj.fragment = fragment;
+    }
+  });
+  obj.request = loader;
+  return obj;
+}
+function processResource(options, loaderContext, callback) {
+  //重置loaderIndex 改为loader长度减1
+  loaderContext.loaderIndex = loaderContext.loaders.length - 1;
+  let resourcePath = loaderContext.resourcePath;
+  //调用 fs.readFile方法读取资源内容
+  options.readResource(resourcePath, function (err, buffer) {
+    if (err) return callback(error);
+    options.resourceBuffer = buffer;//resourceBuffer放的是资源的原始内容
+    iterateNormalLoaders(options, loaderContext, [buffer], callback);
+  });
+}
+function iterateNormalLoaders(options, loaderContext, args, callback) {
+  if (loaderContext.loaderIndex < 0) {//如果正常的normal loader全部执行完了
+    return callback(null, args);
+  }
+  let currentLoaderObject = loaderContext.loaders[loaderContext.loaderIndex];
+  //如果说当这个normal已经执行过了,让索引减少1
+  if (currentLoaderObject.normalExecuted) {
+    loaderContext.loaderIndex--;
+    return iterateNormalLoaders(options, loaderContext, args, callback)
+  }
+  let normalFn = currentLoaderObject.normal;
+  currentLoaderObject.normalExecuted = true;
+  convertArgs(args, currentLoaderObject.raw);
+  runSyncOrAsync(normalFn, loaderContext, args, function (err) {
+    if (err) return callback(err);
+    let args = Array.prototype.slice.call(arguments, 1);
+    iterateNormalLoaders(options, loaderContext, args, callback);
+  });
+}
+/**
+ * 执行loader的pitch方法
+ * @param {*} options 
+ * @param {*} loaderContext 即 this
+ * @param {*} callback 
+ * @returns 
+ */
+function iteratePitchingLoaders(options, loaderContext, callback) {
+  if (loaderContext.loaderIndex >= loaderContext.loaders.length) {
+    return processResource(options, loaderContext, callback);
+  }
+  //获取当前的loader
   let currentLoaderObject = loaderContext.loaders[loaderContext.loaderIndex];
   if (currentLoaderObject.pitchExecuted) {
     loaderContext.loaderIndex++;
-    return iteratePitchingLoaders(processOptions, loaderContext, finalCallback);
+    return iteratePitchingLoaders(options, loaderContext, callback)
   }
+  loadLoader(currentLoaderObject);
   let pitchFunction = currentLoaderObject.pitch;
-  currentLoaderObject.pitchExecuted = true;//表示pitch函数已经执行过了
-  if (!pitchFunction)//如果此loader没有提供pitch方法
-    return iteratePitchingLoaders(processOptions, loaderContext, finalCallback);
-  runSyncOrAsync(pitchFunction, loaderContext,
-    [loaderContext.remainingRequest, loaderContext.previousRequest, loaderContext.data]
-    , (err, ...values) => {
-      if (values.length > 0 && !!values[0]) {
-        loaderContext.loaderIndex--;//索引减1，回到上一个loader,执行上一个loader的normal方法
-        iterateNormalLoaders(processOptions, loaderContext, values, finalCallback);
-      } else {
-        iteratePitchingLoaders(processOptions, loaderContext, finalCallback);
+  currentLoaderObject.pitchExecuted = true;
+  if (!pitchFunction) {
+    return iteratePitchingLoaders(options, loaderContext, callback)
+  }
+  runSyncOrAsync(
+    pitchFunction,//要执行的pitch函数
+    loaderContext,//上下文对象
+    //这是要传递给pitchFunction的参数数组
+    [loaderContext.remainingRequest, loaderContext.previousRequest, loaderContext.data = {}],
+    function (err, ...args) {
+      if (args.length > 0) {//如果 args有值,说明这个pitch有返回值
+        loaderContext.loaderIndex--;//索引减1,开始回退了
+        iterateNormalLoaders(options, loaderContext, args, callback);
+      } else {//如果没有返回值,则执行下一个loader的pitch函数
+        iteratePitchingLoaders(options, loaderContext, callback)
       }
-    });
+    }
+  );
 }
 function runSyncOrAsync(fn, context, args, callback) {
-  let isSync = true;//是否同步，默认是的
-  let isDone = false;//是否fn已经执行完成,默认是false
-  const innerCallback = context.callback = function (err, ...values) {
-    isDone = true;
-    isSync = false;
-    callback(err, ...values);
-  }
+  let isSync = true;//默认是同步
+  let isDone = false;//是否完成,是否执行过此函数了,默认是false
+  //调用context.async this.async 可以把同步把异步,表示这个loader里的代码是异步的
   context.async = function () {
-    isSync = false;//把同步标志设置为false,意思就是改为异步
+    isSync = false;//改为异步
     return innerCallback;
   }
+  const innerCallback = context.callback = function () {
+    isDone = true;//表示当前函数已经完成
+    isSync = false;//改为异步
+    callback.apply(null, arguments);//执行 callback
+  }
+  //第一次fn=pitch1,执行pitch1
   let result = fn.apply(context, args);
+  //在执行pitch2的时候,还没有执行到pitch1 这行代码
   if (isSync) {
-    isDone = true;//直接完成
-    return callback(null, result);//调用回调
+    isDone = true;
+    return callback(null, result);
   }
 }
-function runLoaders(options, callback) {
-  let resource = options.resource || '';//要加载的资源 c:/src/index.js?name=Sunny#top
-  let loaders = options.loaders || [];//loader绝对路径的数组
-  let loaderContext = options.context || {};//这个是一个对象，它将会成为loader函数执行时候的上下文对象this
-  let readResource = options.readResource || readFile;
-  let loaderObjects = loaders.map(createLoaderObject);
-  loaderContext.resource = resource;
-  loaderContext.readResource = readResource;
-  loaderContext.loaderIndex = 0;//它是一个指标，就是通过修改它来控制当前在执行哪个loader
-  loaderContext.loaders = loaderObjects;//存放着所有的loaders
-  loaderContext.callback = null;
-  loaderContext.async = null;//它是一个函数，可以把loader的执行从同步改为异步
+exports.runLoaders = function ({
+  resource = '',//要加载的资源的绝对路径
+  loaders = [], //loader的绝对路径的数组 
+  readResource = readFile //读文件的
+}, callback) {
+  //loader执行时候的上下文对象 这个对象将会成为loader执行的时候的this指针
+  let loaderContext = {};
+  let {
+    path: resourcePath,
+    query: resourceQuery,
+    fragment: resourceFragment
+  } = parsePathQueryFragment(resource);
+  let contextDirectory = path.dirname(resourcePath);//此文件所在的上下文目录
+  loaders = loaders.map(createLoaderObject);//准备loader对象数组
+  loaderContext.context = contextDirectory;//要加载的资源的所在目录
+  loaderContext.loaderIndex = 0;//当前的 loader的索引
+  loaderContext.loaders = loaders;
+  loaderContext.resourcePath = resourcePath;
+  loaderContext.resourceQuery = resourceQuery;
+  loaderContext.resourceFragment = resourceFragment;
+  loaderContext.async = null;//是一个方法,可以loader的执行从同步改成异步
+  loaderContext.callback = null;//调用下一个loader
+
+  // resource： 只有资源
+  Object.defineProperty(loaderContext, 'resource', {
+    get() {
+      return loaderContext.resourcePath + loaderContext.resourceQuery + loaderContext.resourceFragment;
+    }
+  });
+  //request：包含所有的loader+资源
+  //request =loader1!loader2!loader3!resource.js
   Object.defineProperty(loaderContext, 'request', {
     get() {
       return loaderContext.loaders.map(l => l.request).concat(loaderContext.resource).join('!')
     }
   });
+  //剩下的loader 从当前的下一个loader开始取,加上resource
   Object.defineProperty(loaderContext, 'remainingRequest', {
     get() {
-      return loaderContext.loaders.slice(loaderContext.loaderIndex + 1).concat(loaderContext.resource).join('!')
+      return loaderContext.loaders.slice(loaderContext.loaderIndex + 1).map(l => l.request).concat(loaderContext.resource).join('!')
     }
   });
+  //当前loader 从当前的loader开始取,加上resource
   Object.defineProperty(loaderContext, 'currentRequest', {
     get() {
-      return loaderContext.loaders.slice(loaderContext.loaderIndex).concat(loaderContext.resource).join('!')
+      return loaderContext.loaders.slice(loaderContext.loaderIndex).map(l => l.request).concat(loaderContext.resource).join('!')
     }
   });
+  //之前loader 
   Object.defineProperty(loaderContext, 'previousRequest', {
     get() {
-      return loaderContext.loaders.slice(0, loaderContext.loaderIndex).join('!')
+      return loaderContext.loaders.slice(0, loaderContext.loaderIndex).map(l => l.request)
     }
   });
+  //当前loader的query
+  Object.defineProperty(loaderContext, 'query', {
+    get() {
+      let loader = loaderContext.loaders[loaderContext.loaderIndex];
+      return loader.options || loader.query;
+    }
+  });
+  //当前loader的data
   Object.defineProperty(loaderContext, 'data', {
     get() {
-      let loaderObj = loaderContext.loaders[loaderContext.loaderIndex];
-      return loaderObj.data;
+      let loader = loaderContext.loaders[loaderContext.loaderIndex];
+      return loader.data;
     }
   });
   let processOptions = {
-    resourceBuffer: null
+    resourceBuffer: null,//最后我们会把loader执行的Buffer结果放在这里
+    readResource
   }
-  iteratePitchingLoaders(processOptions, loaderContext, (err, result) => {
-    callback(err, {
+  iteratePitchingLoaders(processOptions, loaderContext, function (err, result) {
+    if (err) {
+      return callback(err, {});
+    }
+    callback(null, {
       result,
       resourceBuffer: processOptions.resourceBuffer
     });
   });
 }
-exports.runLoaders = runLoaders;

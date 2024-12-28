@@ -60,6 +60,9 @@ runLoaders({
   context: { name: 'Sunny' },
   readResource: fs.readFile.bind(fs)
 }, function (err, result) {
-  console.log(err);
-  console.log(result.result, result.resourceBuffer.toString());
+  console.log({
+    err,
+    result
+  });
+  // console.log(result.result, result.resourceBuffer.toString());
 })
