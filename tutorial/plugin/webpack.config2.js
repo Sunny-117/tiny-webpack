@@ -1,11 +1,11 @@
 const path = require('path');
-const SyncDonePlugin = require('./plugins/SyncDonePlugin');
-const AsyncDonePlugin = require('./plugins/AsyncDonePlugin');
-const AssetsPlugin = require('./plugins/AssetsPlugin');
-const ZipPlugin = require('./plugins/ZipPlugin');
+const SyncDonePlugin = require('./core/SyncDonePlugin');
+const AsyncDonePlugin = require('./core/AsyncDonePlugin');
+const AssetsPlugin = require('./core/AssetsPlugin');
+const ZipPlugin = require('./core/ZipPlugin2');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const AutoExternalPlugin = require('./plugins/AutoExternalPlugin');
-const HashPlugin = require('./plugins/HashPlugin');
+const AutoExternalPlugin = require('./core/AutoExternalPlugin3');
+const HashPlugin = require('./core/HashPlugin');
 //page1 chunkhash 49eb
 //page1 chunkhash 7d3e
 //page1 chunkhash 49eb

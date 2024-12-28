@@ -1,5 +1,5 @@
 const webpack = require("webpack");
-const webpackOptions = require("./webpack.config");
+const webpackOptions = require("./webpack.config2");
 
 const compiler = webpack(webpackOptions);
 debugger

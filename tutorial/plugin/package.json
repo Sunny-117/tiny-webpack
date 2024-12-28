@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "build2": "webpack --config webpack.config2.js"
   },
   "keywords": [],
   "author": "",
