@@ -20,7 +20,7 @@
   console.log(css)
 })()
 
-// run node core/css/pure-css-output.js
+// run
 /**
 output:
 
