@@ -49,7 +49,7 @@ module.exports = {
         use: [
           "style-loader",
           {
-            loader: 'css-loader',
+            loader: path.resolve(__dirname, './core/css/css-loader.js'),
             options: {
               url: true,//是否解析url()
               import: true,//是否解析@import语法
@@ -67,7 +67,7 @@ module.exports = {
         use: [
           "style-loader",
           {
-            loader: 'css-loader',
+            loader: path.resolve(__dirname, './core/css/css-loader.js'),
             options: {
               url: false,//是否解析url()
               import: true,//是否解析@import语法
