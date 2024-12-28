@@ -44,7 +44,7 @@ resolveLoader: {
 2. modules
 ```js
 resolveLoader: {
-  modules: [path.resolve('./babel-loader.js'), './core']
+  modules: [path.resolve('./babel-loader.js'), './core'] // 先从第一个参数找，找不到再从第二个参数找
 },
 ```
 3. 绝对路径

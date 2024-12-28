@@ -133,9 +133,9 @@ function runSyncOrAsync(fn, context, args, callback) {
     callback.apply(null, arguments);//执行 callback
   }
   //第一次fn=pitch1,执行pitch1
-  let result = fn.apply(context, args);
-  //在执行pitch2的时候,还没有执行到pitch1 这行代码
+  let result = fn.apply(context, args); // pitch的返回值可有可无
   if (isSync) {
+    // 同步代码
     isDone = true;
     return callback(null, result);
   }

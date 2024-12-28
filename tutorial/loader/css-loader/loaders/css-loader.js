@@ -69,13 +69,8 @@ function loader(inputSource) {
 }
 
 module.exports = loader;
-//js babel
-//css postcss
-//返回的是数组哪里处理的 
 
 /**
- * 特别要注意几个东西
- * 什么代码是在什么时候执行的
  * css-loader是在webpack处理index.js里的index.css依赖的时候执行
  * 返回此代码
  * var list = [];
@@ -89,14 +84,4 @@ module.exports = loader;
    此代码也是JS的，然后给了webpack
    webpack也要把它转成JS的抽象语法树，分析require import依赖
    webpack会去处理'./src/global.css'这个依赖
-
-   返回的是数组哪里处理的
-岁月小小
-文件匹配 /.css/时
-岁月小小
-给下一个loader吧？
-岁月小小
-不是给style-loader吗？
-等于是require一个css，的时候cssloader还会处理他，cssloader返回的是数组，所以。。
-
  */
