@@ -3,14 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode:'development',
     devtool:'inline-source-map',
-    //配置如何查找loader
-    /* resolveLoader:{
-        alias:{
-            'babel-loader':path.resolve('./loaders/babel-loader.js')
-        },
-        modules:[path.resolve('./loaders'),'node_modules']
-    } ,
-    */
     module:{
         rules:[
             /* {
@@ -32,8 +24,8 @@ module.exports = {
             },
             {
                 test:/\.less$/,
-                use:[path.resolve('./loaders/style-loader.js')
-                ,path.resolve('./loaders/less-loader.js')],
+                use:[path.resolve('./loaders/style-loader.js'),
+                path.resolve('./loaders/less-loader.js')],
                 include:path.resolve('src')
             }
         ]
