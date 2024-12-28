@@ -16,7 +16,7 @@ const loaders = [
 runLoaders({
     resource,
     loaders,
-    context: {name:'Sunny'},
+    context: {name:'Sunny'}, // 基础的上下文对象
 	readResource: fs.readFile.bind(fs)
 }, function(err, result) {
     console.log(err);
