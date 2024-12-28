@@ -8,6 +8,9 @@ dependencies:
   loader-runner:
     specifier: ^4.3.0
     version: 4.3.0
+  mime:
+    specifier: 1.6.0
+    version: 1.6.0
 
 devDependencies:
   '@babel/core':
@@ -2678,7 +2681,6 @@ packages:
     resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}
     engines: {node: '>=4'}
     hasBin: true
-    dev: true
 
   /minimalistic-assert@1.0.1:
     resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}

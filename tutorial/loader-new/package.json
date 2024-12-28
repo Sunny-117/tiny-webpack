@@ -10,7 +10,8 @@
     "start": "webpack serve"
   },
   "dependencies": {
-    "loader-runner": "^4.3.0"
+    "loader-runner": "^4.3.0",
+    "mime": "1.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

@@ -20,4 +20,6 @@ function loader(content, inputSourceMap, data) {
   }
   return `module.exports = "${filename}"`
 }
+// 如果不希望webpack把内容转成字符串，loader.raw=true,这样content就是二进制的buffer
+loader.raw = true;
 module.exports = loader;
