@@ -1,7 +1,7 @@
 
 let HtmlWebpackPlugin = require('html-webpack-plugin');
-let AutoExternalPlugin = require('./plugins/AutoExternalPlugin');
-const WebpackArchivePlugin = require('./plugins/ArchivePlugin');
+let AutoExternalPlugin = require('./core/AutoExternalPlugin');
+const WebpackArchivePlugin = require('./core/ArchivePlugin');
 // const V = require('wepback-plugin-visualizer')
 module.exports = {
   mode: 'development',
