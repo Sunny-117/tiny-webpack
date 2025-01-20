@@ -7,7 +7,7 @@ class WebpackAssetsPlugin {
     compiler.hooks.compilation.tap('WebpackAssetsPlugin', (compilation) => {
       //每次根据chunk创建一个新的文件后会触发一次chunkAsset
       compilation.hooks.chunkAsset.tap('WebpackAssetsPlugin', (chunk, filename) => {
-        console.log(11111, chunk.id, filename);
+        // console.log(11111, chunk.id, filename);
       });
     });
   }
