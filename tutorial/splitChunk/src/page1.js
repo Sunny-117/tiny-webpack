@@ -8,8 +8,8 @@ import( /* webpackChunkName: "asyncModule1111" */ './asyncModule1');
 
 
 // 调低网速，看请求过程
-import('./lazy/1')
-import('./lazy/2')
-import('./lazy/3')
-import('./lazy/4')
-import('./lazy/5')
+// import('./lazy/1')
+// import('./lazy/2')
+// import('./lazy/3')
+// import('./lazy/4')
+// import('./lazy/5')
