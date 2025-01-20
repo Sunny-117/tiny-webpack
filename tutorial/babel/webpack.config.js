@@ -32,7 +32,7 @@ module.exports = {
                 targets: {
                   node: 'current',
                   chrome: 52,
-                  browsers: ['last 2 versions', '> 1%']
+                  browsers: ['last 2 version', 'safari 7']
                 }
               }
             ]
@@ -43,7 +43,12 @@ module.exports = {
                 {
                   corejs: 2, // 自动引入
                   // corejs: false, // 没有polyfill
-                  helper: false, // 抽取公共方法 TODO：验证效果
+                  // https://www.babeljs.cn/docs/babel-runtime
+                  /**
+                   * false: 产物中function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), _babel_runtime_corejs2_core_js_object_define_property__WEBPACK_IMPORTED_MODULE_7___default()(e, "prototype", { writable: !1 }), e; }有两份
+                   * true: 产物中function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), _babel_runtime_corejs2_core_js_object_define_property__WEBPACK_IMPORTED_MODULE_7___default()(e, "prototype", { writable: !1 }), e; }只有一份
+                   */
+                  helpers: true, // 抽取公共方法
                   regenerator: false // 重写生成器方法
                 }
               ]
