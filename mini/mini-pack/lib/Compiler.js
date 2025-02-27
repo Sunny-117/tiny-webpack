@@ -60,7 +60,7 @@ class Compiler {
 
   // 解析源码
   parse(source, parentPath) { // AST解析语法树
-    const ast = babylon.parse(source)
+    const ast = babylon.parse(source, {sourceType: 'module'})
     const dependencies = []// 依赖的数组
     traverse(ast, {
       CallExpression(p) { //  a() require()
