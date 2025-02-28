@@ -5,6 +5,10 @@
   "bin": {
     "mini-pack": "./bin/mini-pack.js"
   },
+  "scripts": {
+    "build": "node bin/mini-pack.js",
+    "dev": "node bin/mini-pack.js && node dist/bundle.js"
+  },
   "dependencies": {
     "@babel/generator": "^7.2.2",
     "@babel/traverse": "^7.2.2",

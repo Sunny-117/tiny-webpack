@@ -7,6 +7,19 @@ const generator = require('@babel/generator').default
 const ejs = require('ejs')
 const { SyncHook } = require('tapable')
 
+function getSourceType() {
+  // 根据package.json的type字段
+  if (fs.existsSync(path.resolve(process.cwd(), 'package.json'))) {
+    const packagePath = path.resolve(process.cwd(), 'package.json')
+    const package = JSON.parse(fs.readFileSync(packagePath, 'utf8'))
+    if (package.type === 'module'){
+      return 'module'
+    }
+    return 'script'
+  }
+  return 'script'
+}
+
 class Compiler {
   constructor(config) {
     this.config = config
@@ -60,7 +73,7 @@ class Compiler {
 
   // 解析源码
   parse(source, parentPath) { // AST解析语法树
-    const ast = babylon.parse(source, {sourceType: 'module'})
+    const ast = babylon.parse(source, {sourceType: getSourceType()})
     const dependencies = []// 依赖的数组
     traverse(ast, {
       CallExpression(p) { //  a() require()

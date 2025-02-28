@@ -1,2 +1,4 @@
-import {a} from './a';
-console.log(a)
+
+const {sum} = require('./sum')
+
+console.log(sum)

@@ -8,7 +8,7 @@ const path = require('node:path')
 const config = require(path.resolve('webpack.config.js'))
 
 const Compiler = require('../lib/Compiler.js')
-
+debugger
 const compiler = new Compiler(config)
 compiler.hooks.entryOption.call()
 // 标识运行编译
