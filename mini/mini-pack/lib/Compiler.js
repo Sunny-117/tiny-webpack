@@ -1,6 +1,6 @@
 const fs = require('node:fs')
 const path = require('node:path')
-const babylon = require('babylon')
+const {parse} = require('@babel/parser')
 const t = require('@babel/types')
 const traverse = require('@babel/traverse').default
 const generator = require('@babel/generator').default
@@ -73,7 +73,9 @@ class Compiler {
 
   // 解析源码
   parse(source, parentPath) { // AST解析语法树
-    const ast = babylon.parse(source, {sourceType: getSourceType()})
+    const ast = parse(source, {
+      sourceType: getSourceType(),
+    })
     const dependencies = []// 依赖的数组
     traverse(ast, {
       CallExpression(p) { //  a() require()
