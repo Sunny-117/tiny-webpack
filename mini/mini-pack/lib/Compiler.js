@@ -75,6 +75,10 @@ class Compiler {
   parse(source, parentPath) { // AST解析语法树
     const ast = parse(source, {
       sourceType: getSourceType(),
+      plugins: [
+        "asyncGenerators",
+        "jsx"
+      ],
     })
     const dependencies = []// 依赖的数组
     traverse(ast, {
