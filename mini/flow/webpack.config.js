@@ -15,7 +15,7 @@ module.exports = {
     },
     output:{
         path:path.resolve(__dirname,'dist'),
-        filename:'[name].js'
+        filename:'[name]--------.js'
     },
     resolve:{
         extensions:['.js','.jsx','.json']
@@ -32,6 +32,9 @@ module.exports = {
         ]
     },
     plugins:[
+        // 挂载无序，执行有序
+        // 同样的hook按照注册顺序执行
+        // 不同hook看hook的执行顺序
         new Run1Plugin(),
         new DonePlugin(),  
         new READMEPlugin()
