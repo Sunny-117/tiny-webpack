@@ -44,7 +44,7 @@ class Compiler{
         let entryModule =  this.buildModule(entryName,entryFilePath);
         //this.modules.add(entryModule);
         //7.根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 Chunk
-        let chunk = {name:entryName,entryModule,modules:this.modules.filter(module=>module.name===entryName)}; 
+        let chunk = {name:entryName,entryModule,modules:[...this.modules].filter(module=>module.name===entryName)}; 
         this.chunks.add(chunk);
         this.entries.add(chunk);//也是入口代码块
        }
@@ -134,7 +134,7 @@ class Compiler{
                     let depModuleId = './'+path.posix.relative(baseDir,depModulePath);//./src/title.js
                     //修改抽象语法树
                     node.arguments = [types.stringLiteral(depModuleId)];
-                    module.dependencies.add(depModulePath);
+                    module.dependencies.push(depModulePath);
                 }
             }
         });
