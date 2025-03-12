@@ -92,10 +92,13 @@ export class Compiler extends Tapable {
     const params = this.newCompilationParams()
     this.hooks.beforeCompile.callAsync(params, (_err) => {
       this.hooks.compile.call(params)
+      // 每次开始编译都创建新的Compilation
       const compilation = this.newCompilation(params)
-
+      // ! make 阶段：真正编译的入口
       this.hooks.make.callAsync(compilation, (_err) => {
+        // ! seal 阶段
         compilation.seal((_err) => {
+          // 完成编译
           this.hooks.afterCompile.callAsync(compilation, (err) => {
             console.log('make finished')
             onCompiled(err, compilation)

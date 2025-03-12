@@ -4,6 +4,7 @@ import { EntryOptionPlugin } from './EntryOptionPlugin'
 
 /**
  * mount inner plugins
+ * 挂载内部插件
  */
 export class JsPackOptionsApply {
   constructor() {}
