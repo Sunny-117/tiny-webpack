@@ -67,7 +67,8 @@ class Compiler {
   // 生产代码
   generate(code) {
     // 生成用户配置的打包文件存放路径
-    const filePath = path.join(this.output.path, this.output.filename);
+    const dir = this.output.path;
+    const filePath = path.join(dir, this.output.filename);
     // 生成 bundle
     const bundle = `(function(graph){
         function require(moduleId){ 
@@ -83,7 +84,11 @@ class Compiler {
         require('${this.entry}')
       })(${JSON.stringify(code)})`;
     // 最后将生成的 bundle 写入文件
+    if (!fs.existsSync(filePath)){
+      fs.mkdirSync(dir)
+    }
     fs.writeFileSync(filePath, bundle);
+    console.log('success')
   }
 }
 
