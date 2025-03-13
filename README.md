@@ -6,6 +6,8 @@
 [![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
+![alt text](./assets/logo.png)
+
 ✨ A JavaScript bundler with Webpack-like features, supporting modern frontend workflows.
 
 📦 Features
