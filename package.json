@@ -1,16 +1,16 @@
 {
   "name": "tiny-webpack",
   "type": "module",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.1",
   "description": "Powerful JavaScript Bundler",
   "license": "MIT",
-  "homepage": "https://github.com/Sunny-117/jspack#readme",
+  "homepage": "https://github.com/Sunny-117/tiny-webpack#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sunny-117/jspack.git"
+    "url": "git+https://github.com/Sunny-117/tiny-webpack.git"
   },
   "bugs": {
-    "url": "https://github.com/Sunny-117/jspack/issues"
+    "url": "https://github.com/Sunny-117/tiny-webpack/issues"
   },
   "exports": {
     ".": {
