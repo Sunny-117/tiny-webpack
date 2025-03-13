@@ -121,12 +121,14 @@ class Compilation extends Tapable{
         for(let moduleId in this.commonsCountMap){
             let {module,count} = this.commonsCountMap[moduleId];
             if(count>=2){
-                module.name ='commons';//
+                module.name ='commons';
                 this.commons.push(module);//title
             } 
         }
         let exactedModuleIds = [...this.vendors,...this.commons].map(item=>item.moduleId);//[lodash,title]
+        console.log(this.modules.length, 'this.modules前')
         this.modules = this.modules.filter(module=>exactedModuleIds.indexOf(module.moduleId)==-1);
+        console.log(this.modules.length, 'this.modules后')
 
         for(const entryModule of this.entries){//entries 代表入口模块,每个入口模块和它依赖的模块会生成一个代码块
             const chunk = new Chunk(entryModule);//根据入口模块生成代码块 chunk.async=true
