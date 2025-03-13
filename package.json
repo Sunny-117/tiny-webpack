@@ -1,7 +1,7 @@
 {
   "name": "@sunny-117/jspack",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Powerful JavaScript Bundler",
   "license": "MIT",
   "homepage": "https://github.com/Sunny-117/jspack#readme",
