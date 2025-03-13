@@ -2,6 +2,7 @@ import path, { dirname } from 'node:path'
 import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { SyncHook, Tapable } from 'tapable'
+// @ts-expect-error
 import async from 'neo-async'
 import ejs from 'ejs'
 import type { Compiler } from './Compiler'
@@ -178,7 +179,7 @@ export class Compilation extends Tapable {
       if (/node_modules/.test(module.moduleId)) {
         // TODO：读取配置：optimization.splitChunks.cacheGroups.vendors.name
         module.name = 'vendors'
-        // 防止重复收集
+        // 防止重复收集: 添加过的就不再次添加了
         if (!this.vendors.find(item => item.moduleId === module.moduleId))
           this.vendors.push(module)
       }
