@@ -14,7 +14,7 @@ class AutoExternalPlugin {
     //普通模块工厂是用来创建普通模块的
     compiler.hooks.normalModuleFactory.tap('AutoExternalPlugin', (normalModuleFactory) => {
       normalModuleFactory.hooks.parser
-        .for('javascript/auto')
+        .for('javascript/auto') // 拿到javascript/auto的parser
         .tap('AutoExternalPlugin', parser => {//babel esprima acorn
           parser.hooks.import.tap('AutoExternalPlugin', (statement, source) => {
             this.importedModules.add(source);//jquery
@@ -40,3 +40,10 @@ class AutoExternalPlugin {
 
 
 module.exports = AutoExternalPlugin;
+
+
+// 要想监听 import 和require
+// 1.通过Compiler获取到normalModuleFactory
+// 2.通过normalModuleFactory的parser钩子获取 parer
+// 3.通过parer的import获取import语句
+// 4.通过parer的call获取 require语句
