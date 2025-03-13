@@ -1,11 +1,4 @@
 {
-  "name": "5.hand",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "babel-generator": "^6.26.1",
     "babel-traverse": "^6.26.0",

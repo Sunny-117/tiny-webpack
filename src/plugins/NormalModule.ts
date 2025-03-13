@@ -76,6 +76,9 @@ export class NormalModule {
         traverse.default(this._ast, {
           CallExpression: (nodePath) => {
             const node = nodePath.node
+            /**
+             * 同步依赖
+             */
             if (node.callee.name === 'require') {
               // 1.把方法名用require改成了__jspack_require__
               node.callee.name = '__jspack_require__'
@@ -105,7 +108,10 @@ export class NormalModule {
                 resource: depResource, // 依赖模块的绝对路径
               })
             }
-            // 判断这个节点CallExpression它的callee是不是import类型
+            /**
+             * 判断这个节点CallExpression它的callee是不是import类型
+             * 异步依赖
+             */
             else if (types.isImport(node.callee)) {
               const moduleName = node.arguments[0].value// 1.模块的名称 ./title.js
               // 2.获得了可能的扩展名

@@ -4,7 +4,7 @@ let WebpackOptionsApply = require('./WebpackOptionsApply');
 function webpack(options){
     //如果选项里提供了上下文路径,则用配置文件里的,如果没有提供呢?就用当前工作路径
     options.context = options.context ||path.resolve(process.cwd());
-    //合并配置 默认配置 配置文件webpack.config.js shell参数  npx webpack --config webpack.config.js
+    //合并配置: 1.默认配置 2.配置文件webpack.config.js 3.shell参数  npx webpack --config webpack.config.js
     let compiler = new Compiler(options.context);
     //合并compiler默认参数对象和用户传进来的配置文件进行合并
     compiler.options = Object.assign(compiler.options,options);

@@ -156,7 +156,7 @@ class Compilation extends Tapable{
             chunk.files = [];//每个代码块有自己的files
             const file = chunk.name +'.js';//得到文件名 代码块的名称.js main.js
             let source;
-            if(chunk.async){//大家可以试一试,如果这个地方不用模板引擎 ,你应如何实现?
+            if(chunk.async){//大家可以试一试,如果这个地方不用模板引擎 ,你应如何实现?拼接字符串！
                 source = chunkRender({
                     chunkName:chunk.name,//入口模块ID
                     modules:chunk.modules //模块的数组 main a b

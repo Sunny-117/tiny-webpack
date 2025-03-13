@@ -17,14 +17,13 @@ class NormalModule{
         this._ast = null;//AST抽象语法树 然后转成抽象语法树
 
         this.moduleId=moduleId;//模块ID
-        this.dependencies = [];//此模块依赖的模块数组 TODO 同步依赖 require 同步依赖
+        this.dependencies = [];//此模块依赖的模块数组 require 同步依赖
 
-        this.async = async;//同步异步标志一路往下传
-        this.blocks= []; //异步依赖 import方法调用 异步依赖
+        this.async = async;//同步异步标志一路往下传 dynamic import
+        this.blocks= []; //import方法调用 异步依赖
     }
     build(compilation,callback){
         this.doBuild(compilation,err=>{
-            debugger
             //先把源代码转成抽象语法树
             let ast = this.parser.parse( this._source);
             //分析依赖require import 依赖
@@ -48,9 +47,9 @@ class NormalModule{
                             //./node_modules/_lodash@4.17.19@lodash/lodash.js
                             //require.resolve解析路径 main index.js
                             depResource = require.resolve(path.posix.join(
-                                this.context,
-                                'node_modules',
-                                moduleName
+                              this.context,
+                              'node_modules',
+                              moduleName
                             ));
                             depResource = depResource.replace(/\\/g,path.posix.sep);
                         }
@@ -120,7 +119,6 @@ class NormalModule{
         }
         //loaders=['style-loader','less-loader']
         loaders = loaders.map(loader=>require.resolve(path.posix.join(this.context,'loaders',loader)));
-        debugger
         runLoaders({
             resource:this.resource,//要加载的模块的绝对路径
             loaders,//loader的绝地路径的数组

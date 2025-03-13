@@ -58,6 +58,7 @@ function runLoaders(options,finalCallback){
 
     function processResource(loaderContext,finalCallback){
         //读文件的时候没有指定编码,那么buffer就是一个Buffer的实例
+        console.log(loaderContext.resource, '实际的文件路径')
         let buffer = fs.readFileSync(loaderContext.resource,'utf8');
         iterateNormalLoaders(loaderContext,buffer,finalCallback);
     }

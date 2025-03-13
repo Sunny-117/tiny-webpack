@@ -8,6 +8,9 @@ class EntryOptionPlugin {
             if(typeof entry === 'string'){
                     new SingleEntryPlugin(context,entry,'main').apply(compiler);
             }else{
+              /**
+               * 多入口
+               */
                 for(let entryName in entry){
                     new SingleEntryPlugin(context,entry[entryName],entryName).apply(compiler);
                 }
