@@ -1,6 +1,5 @@
 # jspack
 
-
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 [![bundle][bundle-src]][bundle-href]
@@ -187,11 +186,11 @@ pnpm run dev # tsup 编译 jspack
 cd playground
 pnpm build
 ```
-```
 
 ## License
 
 [MIT](./LICENSE) License © [Sunny-117](https://github.com/Sunny-117)
+
 
 <!-- Badges -->
 
