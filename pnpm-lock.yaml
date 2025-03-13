@@ -17,18 +17,9 @@ importers:
       babel-types:
         specifier: ^6.26.0
         version: 6.26.0
-      chalk:
-        specifier: ^5.3.0
-        version: 5.4.1
       ejs:
         specifier: ^3.1.5
         version: 3.1.10
-      isarray:
-        specifier: ^2.0.5
-        version: 2.0.5
-      less:
-        specifier: ^3.12.2
-        version: 3.13.1
       mkdirp:
         specifier: 0.5.5
         version: 0.5.5
@@ -54,6 +45,9 @@ importers:
       eslint:
         specifier: ^8.56.0
         version: 8.57.1
+      less:
+        specifier: ^3.12.2
+        version: 3.13.1
       neo-async:
         specifier: ^2.6.2
         version: 2.6.2
@@ -714,10 +708,6 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
-  chalk@5.4.1:
-    resolution: {integrity: sha512-zgVZuo2WcZgfUEmsn6eO3kINexW8RAE4maiQ8QNs8CtpPCSyMiYsULR3HQYkm3w8FIA3SberyMJMSldGsW+U3w==}
-    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
-
   character-entities-legacy@1.1.4:
     resolution: {integrity: sha512-3Xnr+7ZFS1uxeiUDvV02wQ+QDbc55o97tIV5zHScSPJpcLm/r0DFPcoY3tYRp+VZukxuMeKgXYmsXQHO05zQeA==}
 
@@ -1276,9 +1266,6 @@ packages:
 
   is-what@3.14.1:
     resolution: {integrity: sha512-sNxgpk9793nzSs7bA6JQJGeIuRBQhAaNGG77kzYQgMkrID+lS6SlK07K5LaptscDlSaIgH+GPFzf+d75FVxozA==}
-
-  isarray@2.0.5:
-    resolution: {integrity: sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==}
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
@@ -2614,8 +2601,6 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
-  chalk@5.4.1: {}
-
   character-entities-legacy@1.1.4: {}
 
   character-entities@1.2.4: {}
@@ -3236,8 +3221,6 @@ snapshots:
   is-path-inside@3.0.3: {}
 
   is-what@3.14.1: {}
-
-  isarray@2.0.5: {}
 
   isexe@2.0.0: {}
 
