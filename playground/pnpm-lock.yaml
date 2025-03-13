@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@sunny-117/jspack':
+      'tiny-webpack':
         specifier: link:..
         version: link:..
       isarray:

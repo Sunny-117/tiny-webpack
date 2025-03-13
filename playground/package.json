@@ -7,7 +7,7 @@
     "build": "rm -rf dist && node index.js"
   },
   "dependencies": {
-    "@sunny-117/jspack": "workspace:*",
+    "tiny-webpack": "workspace:*",
     "isarray": "^2.0.5"
   },
   "devDependencies": {

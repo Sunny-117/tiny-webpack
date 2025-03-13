@@ -1,4 +1,4 @@
-import { jspack } from '@sunny-117/jspack'
+import { jspack } from 'tiny-webpack'
 
 // import jspackOptions from './jspack.config.js'
 

@@ -1,4 +1,4 @@
-# jspack
+# tiny-webpack
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
@@ -25,9 +25,9 @@
 -------------
 ### Installation
 ```bash
-npm install @sunny-117/jspack --save-dev
+npm install tiny-webpack --save-dev
 # or
-yarn add @sunny-117/jspack -D
+yarn add tiny-webpack -D
 ```
 
 ### Basic Usage
@@ -43,7 +43,7 @@ export default {
   }
 }
 // test.js
-import { jspack } from '@sunny-117/jspack'
+import { jspack } from 'tiny-webpack'
 
 import jspackOptions from './jspack.config.js'
 
@@ -184,7 +184,7 @@ import(/* webpackPrefetch: true */ './critical-module.js')
 
 ```shell
 pnpm i
-pnpm run dev # tsup 编译 jspack
+pnpm run dev # tsup 编译 tiny-webpack
 cd playground
 pnpm build
 ```
@@ -196,13 +196,13 @@ pnpm build
 
 <!-- Badges -->
 
-[npm-version-src]: https://img.shields.io/npm/v/@sunny-117/jspack?style=flat&colorA=080f12&colorB=1fa669
-[npm-version-href]: https://npmjs.com/package/@sunny-117/jspack
-[npm-downloads-src]: https://img.shields.io/npm/dm/@sunny-117/jspack?style=flat&colorA=080f12&colorB=1fa669
-[npm-downloads-href]: https://npmjs.com/package/@sunny-117/jspack
-[bundle-src]: https://img.shields.io/bundlephobia/minzip/@sunny-117/jspack?style=flat&colorA=080f12&colorB=1fa669&label=minzip
-[bundle-href]: https://bundlephobia.com/result?p=@sunny-117/jspack
+[npm-version-src]: https://img.shields.io/npm/v/tiny-webpack?style=flat&colorA=080f12&colorB=1fa669
+[npm-version-href]: https://npmjs.com/package/tiny-webpack
+[npm-downloads-src]: https://img.shields.io/npm/dm/tiny-webpack?style=flat&colorA=080f12&colorB=1fa669
+[npm-downloads-href]: https://npmjs.com/package/tiny-webpack
+[bundle-src]: https://img.shields.io/bundlephobia/minzip/tiny-webpack?style=flat&colorA=080f12&colorB=1fa669&label=minzip
+[bundle-href]: https://bundlephobia.com/result?p=tiny-webpack
 [license-src]: https://img.shields.io/github/license/Sunny-117/jspack.svg?style=flat&colorA=080f12&colorB=1fa669
 [license-href]: https://github.com/Sunny-117/async-processor/blob/main/LICENSE
 [jsdocs-src]: https://img.shields.io/badge/jsdocs-reference-080f12?style=flat&colorA=080f12&colorB=1fa669
-[jsdocs-href]: https://www.jsdocs.io/package/@sunny-117/jspack
+[jsdocs-href]: https://www.jsdocs.io/package/tiny-webpack
