@@ -58,3 +58,7 @@ Compilation只是代表了一次新的编译
 # 流程
 
 创建模块之前先走loaders(把文件转换成js能处理的文件)->ast语法解析->收集依赖模块->创建模块
+
+## architecture
+
+<img src="./workflow.webp" />
