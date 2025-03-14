@@ -1,3 +1,5 @@
+import './index.css';
+
 import(/* webpackPreload: true */'./preload.js').then((result)=>{
     console.log(result.default);
 });
