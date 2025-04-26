@@ -2,3 +2,4 @@ packages:
   - 'playground/**/'
   - 'mini/**/*'
   - 'tutorial/**/*'
+  - 'handle/**/'
