@@ -1,6 +1,8 @@
 const webpack = require('./webpack');
 const options = require('./webpack.config');
 const compiler = webpack(options);
+const {writeFileSync} = require('fs');
+
 compiler.run((err,stats)=>{
     console.log(err);
     let json = stats.toJson({
@@ -11,4 +13,18 @@ compiler.run((err,stats)=>{
         assets:true//产出的文件或者资源
     });
     console.log(json);
+    writeFileSync('./dist/index.html', `
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button class="btn">点击</button>
+    <script src="./main.js"></script>
+</body>
+</html>
+        `, 'utf8');
 });
