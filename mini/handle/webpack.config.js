@@ -4,7 +4,7 @@ module.exports = {
     context:process.cwd(),
     mode:'development',
     devtool:false,
-    // entry:'./src/index.js',
+    // entry:'./src/loader-test.js',
     // entry:{
     //   // 提取公共模块 lodash: 分离common和vender
     //   entry1: './src/entry1.js',

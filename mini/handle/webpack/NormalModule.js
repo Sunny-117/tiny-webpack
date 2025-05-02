@@ -108,7 +108,7 @@ class NormalModule{
        
         //走load-runner compilation.inputFileSystem = fs  fs.readFile
         //compilation.inputFileSystem.readFile(this.resource,'utf8',callback);
-        let {module:{rules}}= compilation.options;
+        let {module:{rules =[]} = {}}= compilation.options;
         let loaders = [];
         for(let i=0;i<rules.length;i++){
             let rule = rules[i];
