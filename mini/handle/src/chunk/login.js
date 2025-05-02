@@ -1,2 +1,3 @@
-import title from "./title";
-console.log('login-', title)
+const title = require('./title')
+const a = require('./a')
+console.log('login-', title, a)
