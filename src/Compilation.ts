@@ -2,7 +2,6 @@ import path, { dirname } from 'node:path'
 import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { SyncHook, Tapable } from 'tapable'
-// @ts-expect-error
 import async from 'neo-async'
 import ejs from 'ejs'
 import type { Compiler } from './Compiler'
@@ -136,9 +135,15 @@ export class Compilation extends Tapable {
     const module = normalModuleFactory.create(data)
 
     addEntry && addEntry(module)
-    this.modules.push(module)
-    if (module.moduleId)
-      this._modules[module.moduleId] = module
+    // 老版本
+    // this.modules.push(module)
+    // if (module.moduleId)
+    //   this._modules[module.moduleId] = module
+    // 新版本
+    if (!this._modules[module.moduleId!]) {
+      this.modules.push(module)
+      this._modules[module.moduleId!] = module
+    }
 
     this.entries.push(module)
 
