@@ -32,7 +32,8 @@ module.exports = {
             chunks:'all',
             minSize:0,
             maxSize:0,
-        }
+        },
+        runtimeChunk: true
     },
     plugins:[
         

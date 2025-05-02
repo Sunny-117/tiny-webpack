@@ -2,7 +2,7 @@
   function webpackJsonpCallback(data) {
     var chunkIds = data[0];
     var moreModules = data[1];
-    var executeModules = data[2];
+    var executeModules = data[2]; // 它依赖的模块
     var moduleId, chunkId, i = 0, resolves = [];
     for (; i < chunkIds.length; i++) {
       chunkId = chunkIds[i];
@@ -20,6 +20,10 @@
     while (resolves.length) {
       resolves.shift()();
     }
+    // __webpack_require__("./src/home.js")
+    // ⬇️⬇️⬇️⬇️
+    // deferredModules.push.apply(deferredModules, executeModules || []);
+    // deferredModules.push(["./src/chunk/home.js", "home~login"]);// [主模块, ...依赖代码块]
     deferredModules.push.apply(deferredModules, executeModules || []);
     return checkDeferredModules();
   };
