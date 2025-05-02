@@ -136,14 +136,16 @@ export class Compilation extends Tapable {
 
     addEntry && addEntry(module)
     // 老版本
-    // this.modules.push(module)
-    // if (module.moduleId)
-    //   this._modules[module.moduleId] = module
-    // 新版本
-    if (!this._modules[module.moduleId!]) {
-      this.modules.push(module)
-      this._modules[module.moduleId!] = module
-    }
+    this.modules.push(module)
+    if (module.moduleId)
+      this._modules[module.moduleId] = module
+    // 新版本：防止重复编译
+    // 缺点：次数永远为1了，不方便统计引用次数
+    // if (!this._modules[module.moduleId!]) { // 如果_modules里面有模块，不要在放了
+    //   this.modules.push(module) // 给普通模块数组添加一个模块
+    //   this._modules[module.moduleId!] = module
+    // }
+    // 所以还是保留老版本代码
 
     this.entries.push(module)
 
@@ -181,6 +183,7 @@ export class Compilation extends Tapable {
     // ! vendors
     for (const module of this.modules) {
       // 如果模块ID中有node_modules内容,说明是一个第三方模块
+      // TODO：读取配置：optimization.splitChunks.cacheGroups.vendors.test
       if (/node_modules/.test(module.moduleId)) {
         // TODO：读取配置：optimization.splitChunks.cacheGroups.vendors.name
         module.name = 'vendors'
