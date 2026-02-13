@@ -1,12 +1,8 @@
 # tiny-webpack
 
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![bundle][bundle-src]][bundle-href]
-[![JSDocs][jsdocs-src]][jsdocs-href]
-[![License][license-src]][license-href]
+[![npm version][npm-version-src]][npm-version-href] [![npm downloads][npm-downloads-src]][npm-downloads-href] [![bundle][bundle-src]][bundle-href] [![JSDocs][jsdocs-src]][jsdocs-href] [![License][license-src]][license-href]
 
-![alt text](./assets/logo.png)
+<img src="./assets/logo.png" width="300" align="center" />
 
 ✨ A JavaScript bundler with Webpack-like features, supporting modern frontend workflows.
 
